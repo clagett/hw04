@@ -1,0 +1,80 @@
+---
+title: "hw04"
+author: "Matthew Clagett"
+date: "April 12, 2018"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, error=TRUE, fig.path = "images/")
+```
+
+```{r}
+source("archive-functions.R")
+raw_data <- read_archive("stringr")
+clean_data <- clean_archive(raw_data)
+plot_archive(clean_data)
+```
+
+Cleaning the archives for packages ggplot2, XML, knitr, dplyr. Writing to csv
+```{r}
+raw_ggplot2 <- read_archive("ggplot2")
+clean_ggplot2 <- clean_archive(raw_ggplot2)
+write.csv(clean_ggplot2, "data/ggplot2-archive.csv")
+
+raw_XML <- read_archive("XML")
+clean_XML <- clean_archive(raw_XML)
+write.csv(clean_XML, "data/XML-archive.csv")
+
+raw_knitr <- read_archive("knitr")
+clean_knitr <- clean_archive(raw_knitr)
+write.csv(clean_knitr, "data/knitr-archive.csv")
+
+raw_dplyr <- read_archive("dplyr")
+clean_dplyr <- clean_archive(raw_dplyr)
+write.csv(clean_dplyr, "data/dplyr-archive.csv")
+```
+
+```{r}
+combined <- rbind(clean_ggplot2, clean_XML, clean_knitr, clean_dplyr)
+ggplot(combined) + geom_step(aes(x=date, y=size, col = names))
+```
+
+```{r}
+ggplot(combined) + geom_step(aes(x=date, y=size)) + facet_wrap(~names, scales="free")
+```
+
+
+### - DATA - EMOTION IN TEXT
+```{r}
+tweets <- read.csv("data/text-emotion.csv")
+content <- as.character(tweets$content)
+
+counts <- sapply(content, nchar)
+summary(counts)
+hist(counts, lwd = 5)
+```
+
+Display the counts of the mentions
+```{r}
+mentions <- data.frame(str_extract_all(content, "\\@[[:alnum:]]*", simplify = TRUE))
+countmentions <- apply(mentions, 1, function(x){sum(x!="")})
+hist(countmentions)
+
+one <- sum(countmentions == 1)
+two <- sum(countmentions == 2)
+three <- sum(countmentions == 3)
+four <- sum(countmentions == 4)
+five <- sum(countmentions == 5)
+six <- sum(countmentions == 6)
+seven <- sum(countmentions == 7)
+eight <- sum(countmentions == 8)
+nine <- sum(countmentions == 9)
+ten <- sum(countmentions == 10)
+mentioncounts <- data.frame(number = c(seq(1,10,1)),counts = c(one,two,three,four,five,six,seven,eight,nine,ten))
+
+barplot(mentioncounts$counts)
+content[countmentions==10]
+```
+
+
