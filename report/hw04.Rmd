@@ -6,11 +6,11 @@ output: github_document
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE, error=TRUE, fig.path = "images/")
+knitr::opts_chunk$set(echo = TRUE, error=TRUE, fig.path = "../images/")
 ```
 
 ```{r}
-source("archive-functions.R")
+source("../code/archive-functions.R")
 raw_data <- read_archive("stringr")
 clean_data <- clean_archive(raw_data)
 plot_archive(clean_data)
@@ -20,19 +20,19 @@ Cleaning the archives for packages ggplot2, XML, knitr, dplyr. Writing to csv
 ```{r}
 raw_ggplot2 <- read_archive("ggplot2")
 clean_ggplot2 <- clean_archive(raw_ggplot2)
-write.csv(clean_ggplot2, "data/ggplot2-archive.csv")
+write.csv(clean_ggplot2, "../data/ggplot2-archive.csv")
 
 raw_XML <- read_archive("XML")
 clean_XML <- clean_archive(raw_XML)
-write.csv(clean_XML, "data/XML-archive.csv")
+write.csv(clean_XML, "../data/XML-archive.csv")
 
 raw_knitr <- read_archive("knitr")
 clean_knitr <- clean_archive(raw_knitr)
-write.csv(clean_knitr, "data/knitr-archive.csv")
+write.csv(clean_knitr, "../data/knitr-archive.csv")
 
 raw_dplyr <- read_archive("dplyr")
 clean_dplyr <- clean_archive(raw_dplyr)
-write.csv(clean_dplyr, "data/dplyr-archive.csv")
+write.csv(clean_dplyr, "../data/dplyr-archive.csv")
 ```
 
 ```{r}
@@ -47,7 +47,7 @@ ggplot(combined) + geom_step(aes(x=date, y=size)) + facet_wrap(~names, scales="f
 
 ### - DATA - EMOTION IN TEXT
 ```{r}
-tweets <- read.csv("data/text-emotion.csv")
+tweets <- read.csv("../data/text-emotion.csv")
 content <- as.character(tweets$content)
 
 counts <- sapply(content, nchar)

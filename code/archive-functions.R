@@ -1,5 +1,6 @@
 library(XML)
 library(stringr)
+library(ggplot2)
 
 read_archive <- function(package){
      tbl_html <- readHTMLTable(paste0("http://cran.r-project.org/src/contrib/Archive/",package))
