@@ -11,6 +11,7 @@ mentions <- str_extract_all(content, "\\@[[:alnum:]]*", simplify = TRUE)
 countmentions <- apply(mentions, 1, function(x){sum(x!="")})
 hist(countmentions)
 
+zero <- sum(countmentions == 0)
 one <- sum(countmentions == 1)
 two <- sum(countmentions == 2)
 three <- sum(countmentions == 3)
